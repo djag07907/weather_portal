@@ -1,0 +1,60 @@
+<html>
+    <head>
+     <title>Note-Taking App</title>
+     <style>
+      #noteBoxes {
+        width: 400px;
+        height: 400px;
+        border: 3px solid #ccc;
+        padding: 10px;
+      }
+       .note {
+        position: relative;
+        padding: 5px 10px;
+        background: #ddd;
+        margin: 5px 0;
+      }
+       .noteFromList {
+        background-color: #randomColor;
+      }
+       .selectedColor {
+        outline: 2px solid #000;
+      }
+      </style>
+    </head>
+    <body>
+      <h1>Note Taking App</h1>
+      <div id="noteBoxes"></div>
+       <h2>Colors</h2>
+      <ul id="colorList">
+        <li><div class="color note" style="background: #f44336;"></div></li>
+        <li><div class="color note" style="background: #ff9800;"></div></li>
+        <li><div class="color note" style="background: #ffeb3b;"></div></li>
+        <li><div class="color note" style="background: #8bc34a;"></div></li>
+        <li><div class="color note" style="background: #03a9f4;"></div></li>
+        <li><div class="color note" style="background: #9c27b0;"></div></li>
+      </ul>
+       <script>
+        const colorList = document.querySelector('#colorList');
+        const noteBoxes = document.querySelector('#noteBoxes');
+         // Handle the selection of colors
+        colorList.addEventListener('click', (event) => {
+          colorList.querySelectorAll('div')
+            .forEach( color => color.classList.remove('selectedColor') );
+           event.target.classList.add('selectedColor');
+        });
+         // Handle the adding of notes
+        noteBoxes.addEventListener('click', (event) => {
+          const selectedColor = colorList.querySelector('.selectedColor').parentElement.innerHTML;
+          const noteHTML = `<div class="note noteFromList">${selectedColor}</div>`;
+          noteBoxes.insertAdjacentHTML('beforeend', noteHTML);
+        });
+         // Handle the deletion of notes
+        noteBoxes.addEventListener('dblclick', (event) => {
+          if(event.target.classList.contains('note')) {
+            event.target.remove();
+          }
+        });
+      </script>
+    </body>
+  </html>
